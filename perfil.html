@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meu Perfil | Cofrinho</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/global.css"/>
+<style>
+
+
+:root {
+  --amarelo: #d47944;
+  --amarelo-hover: #e8935a;
+  --gold:     #C9973A;
+  --gold-l:   #E8B84B;
+  --cinza-escuro: #111111;
+  --cinza-medio: #1e1e1e;
+  --cinza-card: #2a2a2a;
+  --cinza-borda: #3a3a3a;
+  --branco: #ffffff;
+  --texto-muted: #aaaaaa;
+  --shadow: 0 8px 32px rgba(0,0,0,.4);
+  --radius: 10px;
+  --transition: .25s ease;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  background: var(--cinza-escuro);
+  color: var(--branco);
+  line-height: 1.6;
+  min-height: 100vh;
+
+}
+
+a { color: var(--amarelo); text-decoration: none; }
+
+/* ===== HEADER ===== */
+header {
+  font-family: 'Oswald', Arial, sans-serif;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 60px;
+  background: var(--cinza-medio);
+  border-bottom: 1px solid var(--cinza-borda);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+.header-logo-text {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--branco);
+}
+.header-logo-text span { color: var(--gold-l); }
+header nav { display: flex; gap: 2rem; align-items: center; }
+header nav a {
+  color: var(--texto-muted); font-weight: 500; font-size: .95rem;
+  transition: color var(--transition);
+}
+header nav a:hover, header nav a.active { color: var(--gold-l); }
+.nav-toggle { display: none; background: none; border: none; color: var(--branco); font-size: 1.5rem; cursor: pointer; }
+
+@media (max-width: 860px){
+  header{ padding: 15px 20px; }
+  header nav{ display:none; position:fixed; inset:0; background:rgba(17,17,17,.98);
+    flex-direction:column; justify-content:center; align-items:center; gap:2rem; z-index:99; }
+  header nav.open{ display:flex; }
+  .nav-toggle{ display:block; z-index:100; }
+}
+
+/* ===== LAYOUT ===== */
+.page-title {
+  max-width: 1200px;
+  margin: 40px auto 0;
+  padding: 0 30px;
+}
+.page-title h1 { font-family:'Oswald',sans-serif; font-size: 2rem; font-weight: 600; }
+.page-title p { color: var(--texto-muted); margin-top: 6px; font-size: .95rem; }
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 28px;
+  max-width: 1200px;
+  margin: 25px auto 80px;
+  padding: 0 30px;
+  align-items: start;
+}
+
+.card {
+  background: var(--cinza-card);
+  border: 1px solid var(--cinza-borda);
+  border-radius: var(--radius);
+  padding: 26px;
+  box-shadow: var(--shadow);
+}
+
+/* ===== SIDEBAR / PERFIL ===== */
+.sidebar { display: flex; flex-direction: column; gap: 22px; position: sticky; top: 100px; }
+
+.profile-card { text-align: center; }
+
+.avatar-wrap {
+  position: relative;
+  width: 130px;
+  height: 130px;
+  margin: 0 auto 16px;
+}
+.avatar-img {
+  width: 130px; height: 130px; border-radius: 50%;
+  object-fit: cover; border: 3px solid var(--gold);
+  background: var(--cinza-medio);
+  display:flex; align-items:center; justify-content:center;
+  font-size: 42px; color: var(--texto-muted);
+}
+.avatar-edit-btn {
+  position: absolute; bottom: 2px; right: 2px;
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--amarelo); border: 2px solid var(--cinza-card);
+  color: var(--branco); font-size: 14px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: background var(--transition);
+}
+.avatar-edit-btn:hover { background: var(--amarelo-hover); }
+
+.profile-name { font-family:'Oswald',sans-serif; font-size: 1.4rem; font-weight: 600; }
+.profile-prof { color: var(--gold-l); font-size: .9rem; margin-top: 4px; font-weight: 500; }
+.profile-age { color: var(--texto-muted); font-size: .85rem; margin-top: 2px; }
+
+.profile-bio {
+  margin-top: 18px; padding-top: 18px;
+  border-top: 1px solid var(--cinza-borda);
+  text-align: left;
+  font-size: .9rem;
+  color: #ddd;
+}
+.profile-bio-label {
+  text-transform: uppercase; font-size: .7rem; letter-spacing: 1px;
+  color: var(--texto-muted); margin-bottom: 8px; display:flex; align-items:center; justify-content:space-between;
+}
+.icon-btn {
+  background: none; border: none; color: var(--gold-l); cursor: pointer;
+  font-size: .85rem; padding: 2px 4px; transition: color var(--transition);
+}
+.icon-btn:hover { color: var(--gold); }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 11px 18px; border-radius: 8px; font-weight: 600; font-size: .9rem;
+  cursor: pointer; border: none; transition: all var(--transition); width: 100%;
+}
+.btn-primary { background: var(--amarelo); color: var(--branco); }
+.btn-primary:hover { background: var(--amarelo-hover); }
+.btn-outline { background: transparent; color: var(--gold-l); border: 1px solid var(--cinza-borda); }
+.btn-outline:hover { border-color: var(--gold-l); }
+.btn-sm { width:auto; padding: 8px 14px; font-size: .8rem; }
+.btn-danger { background: transparent; color: #e57373; border: 1px solid #5a3a3a; }
+.btn-danger:hover { background: rgba(229,115,115,.1); }
+
+.mt-10 { margin-top: 10px; }
+.mt-16 { margin-top: 16px; }
+
+/* ===== DADOS CONFIDENCIAIS ===== */
+.confidencial-header {
+  display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;
+}
+.confidencial-title { display:flex; align-items:center; gap:8px; font-family:'Oswald',sans-serif; font-size: 1rem; font-weight:600; }
+.confidencial-title i { color: var(--gold-l); }
+.badge-privado {
+  font-size: .68rem; text-transform: uppercase; letter-spacing: .5px;
+  background: rgba(201,151,58,.15); color: var(--gold-l);
+  padding: 3px 9px; border-radius: 20px; border: 1px solid rgba(201,151,58,.35);
+}
+.conf-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 0; border-bottom: 1px solid var(--cinza-borda); font-size: .88rem;
+}
+.conf-row:last-of-type { border-bottom: none; }
+.conf-label { color: var(--texto-muted); }
+.conf-value { font-weight: 500; letter-spacing: .5px; }
+.conf-blur { filter: blur(5px); user-select: none; transition: filter .2s; }
+.conf-toggle-wrap { text-align:center; margin-top: 14px; }
+
+/* ===== MAIN CONTENT / TABS ===== */
+.tabs {
+  display: flex; gap: 6px; margin-bottom: 22px;
+  background: var(--cinza-card); border: 1px solid var(--cinza-borda);
+  border-radius: 10px; padding: 6px; width: fit-content;
+}
+.tab-btn {
+  background: none; border: none; color: var(--texto-muted);
+  padding: 10px 20px; border-radius: 7px; font-weight: 600; font-size: .9rem;
+  cursor: pointer; transition: all var(--transition); font-family: inherit;
+}
+.tab-btn.active { background: var(--amarelo); color: var(--branco); }
+.tab-btn:not(.active):hover { color: var(--branco); }
+
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+.panel-head {
+  display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;
+}
+.panel-head h2 { font-family:'Oswald',sans-serif; font-size: 1.25rem; font-weight: 600; }
+.panel-head p { color: var(--texto-muted); font-size: .85rem; margin-top: 3px; }
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 20px;
+}
+
+.project-card {
+  background: var(--cinza-card); border: 1px solid var(--cinza-borda);
+  border-radius: var(--radius); overflow: hidden;
+  transition: transform var(--transition), border-color var(--transition);
+  display: flex; flex-direction: column;
+}
+.project-card:hover { transform: translateY(-4px); border-color: var(--gold); }
+.project-img {
+  height: 130px; background: linear-gradient(135deg, var(--gold) 0%, var(--amarelo) 100%);
+  display: flex; align-items:center; justify-content:center; color: rgba(255,255,255,.85); font-size: 30px;
+  position: relative;
+}
+.project-status {
+  position:absolute; top:10px; left:10px; font-size:.65rem; text-transform:uppercase;
+  background: rgba(17,17,17,.55); padding: 3px 9px; border-radius: 20px; letter-spacing:.5px;
+}
+.project-info { padding: 16px; flex: 1; display:flex; flex-direction:column; gap: 8px;}
+.project-info h3 { font-size: .98rem; font-weight: 600; }
+.project-info p { font-size: .8rem; color: var(--texto-muted); flex:1; }
+.project-meta { display:flex; justify-content:space-between; font-size:.75rem; color: var(--gold-l); font-weight:600; }
+.project-actions { display: flex; gap: 8px; padding: 0 16px 16px; }
+.project-actions .btn-sm { flex: 1; }
+
+.add-card {
+  border: 2px dashed var(--cinza-borda); border-radius: var(--radius);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 10px; min-height: 230px; cursor: pointer; color: var(--texto-muted);
+  transition: all var(--transition);
+}
+.add-card:hover { border-color: var(--gold-l); color: var(--gold-l); }
+.add-card i { font-size: 28px; }
+
+.empty-state {
+  text-align:center; padding: 50px 20px; color: var(--texto-muted); font-size: .9rem;
+}
+
+/* ===== MODAL ===== */
+.modal-overlay {
+  display: none; position: fixed; inset: 0; background: rgba(0,0,0,.65);
+  z-index: 200; align-items: center; justify-content: center; padding: 20px;
+}
+.modal-overlay.open { display: flex; }
+.modal-box {
+  background: var(--cinza-card); border: 1px solid var(--cinza-borda);
+  border-radius: var(--radius); width: 100%; max-width: 480px;
+  padding: 28px; box-shadow: var(--shadow); max-height: 90vh; overflow-y: auto;
+}
+.modal-head { display:flex; justify-content:space-between; align-items:center; margin-bottom: 20px; }
+.modal-head h3 { font-family:'Oswald',sans-serif; font-size: 1.15rem; }
+.modal-close { background:none; border:none; color: var(--texto-muted); font-size: 1.2rem; cursor:pointer; }
+.modal-close:hover { color: var(--branco); }
+
+.form-group { margin-bottom: 16px; }
+.form-group label {
+  display:block; font-size:.78rem; text-transform:uppercase; letter-spacing:.5px;
+  color: var(--texto-muted); margin-bottom: 7px; font-weight:600;
+}
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%; padding: 11px 13px; border-radius: 7px;
+  border: 1px solid var(--cinza-borda); background: var(--cinza-medio);
+  color: var(--branco); font-size: .9rem; font-family: inherit;
+}
+.form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+  outline: none; border-color: var(--gold-l);
+}
+.form-group textarea { resize: vertical; min-height: 90px; }
+.form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.modal-actions { display:flex; gap: 10px; margin-top: 22px; }
+
+.toast {
+  position: fixed; bottom: 26px; right: 26px; background: var(--cinza-card);
+  border: 1px solid var(--gold); color: var(--branco); padding: 14px 20px;
+  border-radius: 8px; box-shadow: var(--shadow); font-size: .88rem;
+  display: flex; align-items: center; gap: 10px; z-index: 300;
+  transform: translateY(20px); opacity: 0; pointer-events: none; transition: all .3s ease;
+}
+.toast.show { transform: translateY(0); opacity: 1; }
+.toast i { color: var(--gold-l); }
+
+@media (max-width: 860px) {
+  .wrapper { grid-template-columns: 1fr; }
+  .sidebar { position: static; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-logo-text">Cofrin<span>ho</span></div>
+  <nav id="mainNav">
+    <a href="index.html">Início</a>
+    <a href="calculadora.html">Calculadora</a>
+    <a href="sobre.html">Sobre</a>
+    <a href="contato.html">Contato</a>
+    <a href="perfil.html" class="active">Meu Perfil</a>
+  </nav>
+  <button class="nav-toggle" id="navToggle"><i class="fa-solid fa-bars"></i></button>
+</header>
+
+<div class="page-title">
+  <h1>Meu Perfil</h1>
+  <p>Gerencie suas informações, seus dados privados e seus projetos.</p>
+</div>
+
+<div class="wrapper">
+
+  <!-- ===== SIDEBAR ===== -->
+  <div class="sidebar">
+
+    <!-- Cartão de perfil -->
+    <div class="card profile-card">
+      <div class="avatar-wrap">
+        <div class="avatar-img" id="avatarImg"><i class="fa-solid fa-user"></i></div>
+        <div class="avatar-edit-btn" id="avatarEditBtn" title="Alterar foto">
+          <i class="fa-solid fa-camera"></i>
+        </div>
+        <input type="file" id="avatarInput" accept="image/*" hidden>
+      </div>
+
+      <div class="profile-name" id="displayName">Maria Fernandes</div>
+      <div class="profile-prof" id="displayProf">Produtora Cultural</div>
+      <div class="profile-age" id="displayAge">32 anos</div>
+
+      <div class="profile-bio">
+        <div class="profile-bio-label">
+          <span>Bio</span>
+          <button class="icon-btn" id="editBioBtn" title="Editar bio"><i class="fa-solid fa-pen"></i></button>
+        </div>
+        <p id="displayBio">Apaixonada por cultura e arte independente. Ajudo projetos incríveis a saírem do papel através da Lei Rouanet.</p>
+      </div>
+
+      <button class="btn btn-primary mt-16" id="openEditProfileBtn">
+        <i class="fa-solid fa-user-pen"></i> Editar perfil
+      </button>
+    </div>
+
+    <!-- Dados confidenciais -->
+    <div class="card">
+      <div class="confidencial-header">
+        <div class="confidencial-title"><i class="fa-solid fa-lock"></i> Dados confidenciais</div>
+        <span class="badge-privado">Só você vê</span>
+      </div>
+
+      <div class="conf-row">
+        <span class="conf-label">CPF</span>
+        <span class="conf-value conf-blur" data-conf>123.456.789-00</span>
+      </div>
+      <div class="conf-row">
+        <span class="conf-label">E-mail</span>
+        <span class="conf-value conf-blur" data-conf>maria.fernandes@email.com</span>
+      </div>
+      <div class="conf-row">
+        <span class="conf-label">Telefone</span>
+        <span class="conf-value conf-blur" data-conf>(11) 9 8888-7766</span>
+      </div>
+      <div class="conf-row">
+        <span class="conf-label">Endereço</span>
+        <span class="conf-value conf-blur" data-conf>Rua das Artes, 123 – SP</span>
+      </div>
+
+      <div class="conf-toggle-wrap">
+        <button class="btn btn-outline btn-sm" id="toggleConfBtn">
+          <i class="fa-solid fa-eye"></i> Mostrar dados
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== MAIN ===== -->
+  <div class="main-content">
+
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="meus">Meus Projetos</button>
+      <button class="tab-btn" data-tab="apoiados">Projetos Apoiados</button>
+    </div>
+
+    <!-- MEUS PROJETOS -->
+    <div class="tab-panel active" id="tab-meus">
+      <div class="panel-head">
+        <div>
+          <h2>Meus Projetos</h2>
+          <p>Projetos culturais criados e gerenciados por você</p>
+        </div>
+      </div>
+      <div class="project-grid" id="meusProjetosGrid"></div>
+    </div>
+
+    <!-- PROJETOS APOIADOS -->
+    <div class="tab-panel" id="tab-apoiados">
+      <div class="panel-head">
+        <div>
+          <h2>Projetos Apoiados</h2>
+          <p>Projetos culturais que você já incentivou via Lei Rouanet</p>
+        </div>
+      </div>
+      <div class="project-grid" id="apoiadosGrid"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== MODAL: EDITAR PERFIL ===== -->
+<div class="modal-overlay" id="modalPerfil">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3>Editar perfil</h3>
+      <button class="modal-close" data-close><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <form id="formPerfil">
+      <div class="form-group">
+        <label>Nome completo</label>
+        <input type="text" id="inputNome" required>
+      </div>
+      <div class="form-row-2">
+        <div class="form-group">
+          <label>Idade</label>
+          <input type="number" id="inputIdade" min="1" max="120" required>
+        </div>
+        <div class="form-group">
+          <label>Profissão</label>
+          <input type="text" id="inputProfissao" required>
+        </div>
+      </div>
+      <hr style="border-color: var(--cinza-borda); margin-bottom:16px;">
+      <div class="form-group">
+        <label>CPF (confidencial)</label>
+        <input type="text" id="inputCpf">
+      </div>
+      <div class="form-row-2">
+        <div class="form-group">
+          <label>E-mail (confidencial)</label>
+          <input type="email" id="inputEmail">
+        </div>
+        <div class="form-group">
+          <label>Telefone (confidencial)</label>
+          <input type="text" id="inputTelefone">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Endereço (confidencial)</label>
+        <input type="text" id="inputEndereco">
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-outline" data-close>Cancelar</button>
+        <button type="submit" class="btn btn-primary">Salvar alterações</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ===== MODAL: EDITAR BIO ===== -->
+<div class="modal-overlay" id="modalBio">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3>Editar bio</h3>
+      <button class="modal-close" data-close><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <form id="formBio">
+      <div class="form-group">
+        <label>Sobre você</label>
+        <textarea id="inputBio" maxlength="240"></textarea>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-outline" data-close>Cancelar</button>
+        <button type="submit" class="btn btn-primary">Salvar bio</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ===== MODAL: PROJETO (criar/editar) ===== -->
+<div class="modal-overlay" id="modalProjeto">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3 id="modalProjetoTitulo">Novo projeto</h3>
+      <button class="modal-close" data-close><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <form id="formProjeto">
+      <input type="hidden" id="projetoId">
+      <div class="form-group">
+        <label>Nome do projeto</label>
+        <input type="text" id="projetoNome" required>
+      </div>
+      <div class="form-group">
+        <label>Descrição</label>
+        <textarea id="projetoDescricao" required></textarea>
+      </div>
+      <div class="form-row-2">
+        <div class="form-group">
+          <label>Status</label>
+          <select id="projetoStatus">
+            <option value="Em captação">Em captação</option>
+            <option value="Aprovado">Aprovado</option>
+            <option value="Concluído">Concluído</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Meta (R$)</label>
+          <input type="number" id="projetoMeta" min="0" required>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-outline" data-close>Cancelar</button>
+        <button type="submit" class="btn btn-primary">Salvar projeto</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="toast" id="toast"><i class="fa-solid fa-circle-check"></i><span id="toastMsg">Salvo com sucesso!</span></div>
+
+<script>
+/* ===================== ESTADO ===================== */
+let perfil = {
+  nome: "Maria Fernandes",
+  idade: 32,
+  profissao: "Produtora Cultural",
+  bio: "Apaixonada por cultura e arte independente. Ajudo projetos incríveis a saírem do papel através da Lei Rouanet.",
+  cpf: "123.456.789-00",
+  email: "maria.fernandes@email.com",
+  telefone: "(11) 9 8888-7766",
+  endereco: "Rua das Artes, 123 – SP",
+  foto: null
+};
+
+let meusProjetos = [
+  { id: 1, nome: "Festival de Cinema Independente", descricao: "Mostra itinerante de curtas-metragens nacionais em escolas públicas.", status: "Em captação", meta: 80000 },
+  { id: 2, nome: "Oficina de Teatro Popular", descricao: "Oficinas gratuitas de teatro para jovens da periferia.", status: "Aprovado", meta: 35000 }
+];
+
+const projetosApoiados = [
+  { nome: "Orquestra Jovem da Cidade", descricao: "Formação musical gratuita para crianças e adolescentes.", data: "Mar/2026", valor: "R$ 500" },
+  { nome: "Exposição Arte Marginal", descricao: "Mostra fotográfica sobre culturas periféricas urbanas.", data: "Jan/2026", valor: "R$ 250" }
+];
+
+let confidencialVisivel = false;
+let projetoEditandoId = null;
+
+/* ===================== HEADER MOBILE ===================== */
+document.getElementById('navToggle').addEventListener('click', () => {
+  document.getElementById('mainNav').classList.toggle('open');
+});
+
+/* ===================== RENDER PERFIL ===================== */
+function renderPerfil() {
+  document.getElementById('displayName').textContent = perfil.nome;
+  document.getElementById('displayProf').textContent = perfil.profissao;
+  document.getElementById('displayAge').textContent = perfil.idade + " anos";
+  document.getElementById('displayBio').textContent = perfil.bio;
+
+  const avatarBox = document.getElementById('avatarImg');
+  avatarBox.innerHTML = perfil.foto
+    ? `<img src="${perfil.foto}" alt="Foto de perfil" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">`
+    : `<i class="fa-solid fa-user"></i>`;
+
+  const rows = document.querySelectorAll('[data-conf]');
+  const valores = [perfil.cpf, perfil.email, perfil.telefone, perfil.endereco];
+  rows.forEach((el, i) => { el.textContent = valores[i]; });
+}
+
+/* ===================== FOTO DE PERFIL ===================== */
+document.getElementById('avatarEditBtn').addEventListener('click', () => {
+  document.getElementById('avatarInput').click();
+});
+document.getElementById('avatarInput').addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (ev) => {
+    perfil.foto = ev.target.result;
+    renderPerfil();
+    showToast("Foto de perfil atualizada!");
+  };
+  reader.readAsDataURL(file);
+});
+
+/* ===================== DADOS CONFIDENCIAIS ===================== */
+document.getElementById('toggleConfBtn').addEventListener('click', function () {
+  confidencialVisivel = !confidencialVisivel;
+  document.querySelectorAll('[data-conf]').forEach(el => el.classList.toggle('conf-blur', !confidencialVisivel));
+  this.innerHTML = confidencialVisivel
+    ? '<i class="fa-solid fa-eye-slash"></i> Ocultar dados'
+    : '<i class="fa-solid fa-eye"></i> Mostrar dados';
+});
+
+/* ===================== MODAIS: abrir/fechar ===================== */
+function openModal(id) { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+document.querySelectorAll('[data-close]').forEach(btn => {
+  btn.addEventListener('click', () => btn.closest('.modal-overlay').classList.remove('open'));
+});
+document.querySelectorAll('.modal-overlay').forEach(overlay => {
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.classList.remove('open'); });
+});
+
+/* ===================== EDITAR PERFIL ===================== */
+document.getElementById('openEditProfileBtn').addEventListener('click', () => {
+  document.getElementById('inputNome').value = perfil.nome;
+  document.getElementById('inputIdade').value = perfil.idade;
+  document.getElementById('inputProfissao').value = perfil.profissao;
+  document.getElementById('inputCpf').value = perfil.cpf;
+  document.getElementById('inputEmail').value = perfil.email;
+  document.getElementById('inputTelefone').value = perfil.telefone;
+  document.getElementById('inputEndereco').value = perfil.endereco;
+  openModal('modalPerfil');
+});
+
+document.getElementById('formPerfil').addEventListener('submit', (e) => {
+  e.preventDefault();
+  perfil.nome = document.getElementById('inputNome').value.trim();
+  perfil.idade = document.getElementById('inputIdade').value;
+  perfil.profissao = document.getElementById('inputProfissao').value.trim();
+  perfil.cpf = document.getElementById('inputCpf').value.trim();
+  perfil.email = document.getElementById('inputEmail').value.trim();
+  perfil.telefone = document.getElementById('inputTelefone').value.trim();
+  perfil.endereco = document.getElementById('inputEndereco').value.trim();
+  renderPerfil();
+  closeModal('modalPerfil');
+  showToast("Perfil atualizado com sucesso!");
+});
+
+/* ===================== EDITAR BIO ===================== */
+document.getElementById('editBioBtn').addEventListener('click', () => {
+  document.getElementById('inputBio').value = perfil.bio;
+  openModal('modalBio');
+});
+document.getElementById('formBio').addEventListener('submit', (e) => {
+  e.preventDefault();
+  perfil.bio = document.getElementById('inputBio').value.trim();
+  renderPerfil();
+  closeModal('modalBio');
+  showToast("Bio atualizada!");
+});
+
+/* ===================== TABS ===================== */
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+  });
+});
+
+/* ===================== RENDER PROJETOS ===================== */
+function renderMeusProjetos() {
+  const grid = document.getElementById('meusProjetosGrid');
+  grid.innerHTML = "";
+
+  if (meusProjetos.length === 0) {
+    grid.innerHTML = `<div class="empty-state">Você ainda não criou nenhum projeto.</div>`;
+  }
+
+  meusProjetos.forEach(p => {
+    const card = document.createElement('div');
+    card.className = 'project-card';
+    card.innerHTML = `
+      <div class="project-img"><span class="project-status">${p.status}</span><i class="fa-solid fa-clapperboard"></i></div>
+      <div class="project-info">
+        <h3>${p.nome}</h3>
+        <p>${p.descricao}</p>
+        <div class="project-meta"><span>Meta</span><span>R$ ${Number(p.meta).toLocaleString('pt-BR')}</span></div>
+      </div>
+      <div class="project-actions">
+        <button class="btn btn-outline btn-sm" onclick="editarProjeto(${p.id})"><i class="fa-solid fa-pen"></i> Editar</button>
+        <button class="btn btn-danger btn-sm" onclick="excluirProjeto(${p.id})"><i class="fa-solid fa-trash"></i></button>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+
+  const addCard = document.createElement('div');
+  addCard.className = 'add-card';
+  addCard.innerHTML = `<i class="fa-solid fa-circle-plus"></i><span>Criar novo projeto</span>`;
+  addCard.addEventListener('click', () => abrirModalProjeto());
+  grid.appendChild(addCard);
+}
+
+function renderApoiados() {
+  const grid = document.getElementById('apoiadosGrid');
+  grid.innerHTML = "";
+  if (projetosApoiados.length === 0) {
+    grid.innerHTML = `<div class="empty-state">Você ainda não apoiou nenhum projeto.</div>`;
+    return;
+  }
+  projetosApoiados.forEach(p => {
+    const card = document.createElement('div');
+    card.className = 'project-card';
+    card.innerHTML = `
+      <div class="project-img"><i class="fa-solid fa-heart"></i></div>
+      <div class="project-info">
+        <h3>${p.nome}</h3>
+        <p>${p.descricao}</p>
+        <div class="project-meta"><span>${p.data}</span><span>${p.valor}</span></div>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+/* ===================== CRUD PROJETOS ===================== */
+function abrirModalProjeto(id = null) {
+  projetoEditandoId = id;
+  const titulo = document.getElementById('modalProjetoTitulo');
+  if (id) {
+    const p = meusProjetos.find(pr => pr.id === id);
+    titulo.textContent = "Editar projeto";
+    document.getElementById('projetoNome').value = p.nome;
+    document.getElementById('projetoDescricao').value = p.descricao;
+    document.getElementById('projetoStatus').value = p.status;
+    document.getElementById('projetoMeta').value = p.meta;
+  } else {
+    titulo.textContent = "Novo projeto";
+    document.getElementById('formProjeto').reset();
+  }
+  openModal('modalProjeto');
+}
+
+function editarProjeto(id) { abrirModalProjeto(id); }
+
+function excluirProjeto(id) {
+  if (!confirm("Tem certeza que deseja excluir este projeto?")) return;
+  meusProjetos = meusProjetos.filter(p => p.id !== id);
+  renderMeusProjetos();
+  showToast("Projeto excluído.");
+}
+
+document.getElementById('formProjeto').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const dados = {
+    nome: document.getElementById('projetoNome').value.trim(),
+    descricao: document.getElementById('projetoDescricao').value.trim(),
+    status: document.getElementById('projetoStatus').value,
+    meta: document.getElementById('projetoMeta').value
+  };
+
+  if (projetoEditandoId) {
+    const p = meusProjetos.find(pr => pr.id === projetoEditandoId);
+    Object.assign(p, dados);
+    showToast("Projeto atualizado!");
+  } else {
+    dados.id = Date.now();
+    meusProjetos.push(dados);
+    showToast("Projeto criado com sucesso!");
+  }
+
+  renderMeusProjetos();
+  closeModal('modalProjeto');
+});
+
+/* ===================== TOAST ===================== */
+let toastTimeout;
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  document.getElementById('toastMsg').textContent = msg;
+  toast.classList.add('show');
+  clearTimeout(toastTimeout);
+  toastTimeout = setTimeout(() => toast.classList.remove('show'), 3000);
+}
+
+/* ===================== INIT ===================== */
+renderPerfil();
+renderMeusProjetos();
+renderApoiados();
+</script>
+</body>
+</html>
