@@ -1,7 +1,23 @@
 
-/* ===========================
-   inicio do Css do login/cadastro
-=========================== */
+:root {
+  --cinza-escuro: #111111;
+  --cinza-medio: #1e1e1e;
+  --cinza-card: #2a2a2a;
+  --cinza-borda: #3a3a3a;
+  --branco: #ffffff;
+  --texto-muted: #aaaaaa;
+  --cream: #f8f8f8;
+  --white: var(--branco);
+  --gray-100: #f8f9fa;
+  --gray-200: #ececec;
+  --gray-500: #6c757d;
+  --gray-700: #495057;
+  --gray-900: #212529;
+  --radius: 3px;
+  --shadow: 0 8px 32px rgba(0, 0, 0, .4);
+  --transition: .25s ease;
+}
+
 *{
     margin:0;
     padding:0;
@@ -13,7 +29,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;    
-    background: url("../assets/img/background.jpg") center center/cover no-repeat;
+    background: url("img/background.jpg") center center/cover no-repeat;
     overflow: hidden;
     position: relative;
     margin: 0;}
@@ -21,8 +37,8 @@ body {
 .login-background-overlay{
     position:fixed;
     inset:0;
-    background:rgba(171, 156, 150, 0.6);
-    backdrop-filter:blur(4px);
+    background:rgba(239, 239, 239, 0.6);
+   
     z-index:-1;}
 
 .login-container{
@@ -31,20 +47,21 @@ body {
     min-height:500px;
     background:rgba(255,255,255,.15);
     backdrop-filter:blur(25px);
-    border-radius:8px;
+    border-radius:3px;
     overflow:hidden;
     display:flex;
-    box-shadow: 0 20px 40px rgba(86, 49, 49, 0.35);
-    border:1px solid rgba(75, 74, 74, 0.15);}
+   
+    border:2px solid rgba(0, 0, 0, 0.15);}
 
 .login-left-side{
     width:45%;
     background:linear-gradient(
         180deg,
-        #bf895c,
-        #855d3d,
-        #5d422b
+          #2a2a2a,
+          #1e1e1e,
+          #111111
     );
+
     color:#fff;
     padding:60px;
     display:flex;
@@ -77,20 +94,20 @@ body {
     align-items:center;
     gap:18px;
     padding:15px 18px;
-    border-radius:8px;
+    border-radius:3px;
     background:rgba(255,255,255,.08);
     transition:.3s;}
 
 .login-feature:hover{
     transform:translateX(10px);
-    background:rgba(255,255,255,.18);}
+    background:rgba(0, 0, 0, 0.18);}
 
 .login-feature i{
     width:50px;
     height:50px;
     border-radius:50%;
     background:#fff;
-    color:#a35841;
+    color:black;
     display:flex;
     justify-content:center;
     align-items:center;
@@ -124,7 +141,7 @@ body {
     top:50%;
     left:18px;
     transform:translateY(-50%);
-    color:#7d7d7d;}
+    color:var(--cinza-borda);}
 
 .login-input-group input{
     width:100%;
@@ -132,7 +149,7 @@ body {
     border:none;
     outline:none;
     background:#F4F5FA;
-    border-radius:8px;
+    border-radius:3px;
     padding-left:52px;
     padding-right:50px;
     transition:.25s;
@@ -140,7 +157,7 @@ body {
 
 .login-input-group input:focus{
     background:#fff;
-    border:2px solid #674e3a;
+    border:2px solid #000000;
     box-shadow:0 0 0 4px rgba(108,99,255,.15);
 }
 .login-password-group{position:relative;}
@@ -177,7 +194,7 @@ body {
 
 .login-options input{ width:16px; height:16px;}
 .login-options a{
-    color:#6a311c;
+    color:#000000;
     text-decoration:none;
     font-weight:600;}
 
@@ -187,8 +204,8 @@ body {
     width:100%;
     height:56px;
     border:none;
-    border-radius:8px;
-    background:linear-gradient(135deg,#96531f,#bc6625);
+    border-radius:3px;
+    background:linear-gradient(135deg,#000000,#080808);
     color:#fff;
     font-size:16px;
     font-weight:600;
@@ -199,7 +216,7 @@ body {
 
 .login-btn-primary:hover{
     transform:translateY(-3px);
-    box-shadow:0 20px 35px rgba(255, 195, 99, 0.35);}
+    box-shadow:0 20px 35px rgba(70, 69, 69, 0.35);}
 
 .login-btn-primary:active{ transform:scale(.98);}
 
@@ -223,7 +240,7 @@ body {
 .login-btn-google{
     width:100%;
     height:54px;
-    border-radius:8px;
+    border-radius:3px;
     border:1px solid #ddd;
     background:#fff;
     cursor:pointer;
@@ -253,6 +270,7 @@ body {
 
 .login-switch-form a:hover{text-decoration:underline;}
 
+
 .login-terms{
     display:flex;
     align-items:flex-start;
@@ -263,12 +281,15 @@ body {
     margin-bottom:20px;
     line-height:22px;}
 
-.login-terms input{ margin-top:4px;}
+.login-terms input{ margin-top:4px; width: 16px;
+    height: 16px;}
 
 input[type="password"]::-ms-reveal,
 input[type="password"]::-ms-clear{display:none;}
 
 input::-webkit-credentials-auto-fill-button{display:none !important;}
+
+
 
 @keyframes fade{
     from{opacity:0; transform:translateY(20px);}
@@ -294,6 +315,3 @@ input::-webkit-credentials-auto-fill-button{display:none !important;}
     .login-left-side{ display:none;}
     .login-container{ width:100%; }
     .login-right-side{ padding:30px 20px;}}
-/* ===========================
-   Final do Css do login/cadastro
-=========================== */
